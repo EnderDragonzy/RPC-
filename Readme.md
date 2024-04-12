@@ -1,0 +1,33 @@
+# Readme
+
+使用方法：
+
+1、本项目是一个基于java rmi+mybatis开发的RPC+关系数据库版本的学生学籍管理系统。分为客户端与服务端。
+
+2、服务端运行之前需要先建立数据库保存Student信息。
+
+```sql
+CREATE TABLE `student` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `score` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
+
+3、建立数据库后，需要修改jdbc数据库有关信息：
+
+![image-20240412161219372](C:\Users\zhangyi\AppData\Roaming\Typora\typora-user-images\image-20240412161219372.png)
+
+4、运行注册中心、服务端、客户端：必须在编译文件（class文件）的最上层目录下启动rmiregistry才能让注册中心找到正确的类。依次执行：
+
+```shell
+cd F:\DistributedCompute\rmi_stu\output   //（假定你编译后的class文件在该目录下）
+start /b rmiregistry 1099 
+
+F:\DistributedCompute\rmi_stu\output
+java com.stu.Server.RMIServer
+
+java com.stu.Client.RMIClient
+```
+

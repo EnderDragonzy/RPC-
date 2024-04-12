@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace属性相当于映射文件的名称 属性值任意-->
+<mapper namespace="com.stu.mapper.Mapper">
+
+    <!-- resultType属性指定结果的类型 -->
+    <select id="findStuList" resultType="com.stu.Entity.Student">
+        select * from student
+    </select>
+    <!-- ParameType属性指定输入参数的类型
+     如果参数类型是简单类型（基本 + String + date）#{xxx}里面的内容任意-->
+    <select id="findStuById" resultType="com.stu.Entity.Student" parameterType="string">
+        select * from student where id = ${value}
+    </select>
+
+    <!-- 用${value}作为 里面的内容必须是value 利用的是String的存储方式（value[]数组）-->
+    <select id="findStuByName" resultType="com.stu.Entity.Student" parameterType="string">
+        select * from student where name like '%${value}%'
+    </select>
+
+    <!-- 多条件查询利用map类型
+        默认的参数类型是map-->
+    <select id="findStuByScore" resultType="com.stu.Entity.Student">
+        select * from student where score between #{minScore} and #{maxScore}
+    </select>
+
+    <!-- insert 插入数据 只有parameterType输入参数
+        useGeneratedKeys属性指定开启自动填充功能
+        keyProperty属性用于指定生成的主键值填充到类的哪个属性上 -->
+    <insert id="insertStu" parameterType="com.stu.Entity.Student" useGeneratedKeys="true" keyProperty="id">
+        insert into student values(#{id}, #{name}, #{score})
+    </insert>
+
+    <!-- update 同样只有输入参数parameterType-->
+    <update id="updateStu" parameterType="com.stu.Entity.Student">
+        update student set name = #{name},score = #{score}
+        where id = #{id}
+    </update>
+
+    <!-- delete 也是输入参数 -->
+    <delete id="deleteStu" parameterType="string">
+        delete from student where id = ${value}
+    </delete>
+
+</mapper>

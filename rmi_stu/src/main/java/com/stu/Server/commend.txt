@@ -1,0 +1,9 @@
+可能遇到报错：java.rmi.UnmarshalException: error unmarshalling arguments; nested exception is:…………
+Caused by: java.lang.ClassNotFoundException: com.basics.RMI…………
+
+解决方法：必须在编译文件（class文件）的最上层目录下启动rmiregistry才能让注册中心找到正确的类。
+cd F:\DistributedCompute\rmi_stu\output   //（假定你编译后的class文件在该目录下）
+start /b rmiregistry 1099 
+
+F:\DistributedCompute\rmi_stu\output
+java com.stu.Server.RMIServer
